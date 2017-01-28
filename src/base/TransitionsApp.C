@@ -5,7 +5,24 @@
 #include "MooseSyntax.h"
 
 // Transitions Includes
-//#include "BoundaryIntegralFMM.h"
+
+//Auxkernels
+#include "HackathonCHACEnergy.h"
+#include "HackathonCHEnergy.h"
+
+//Kernels
+#include "ACBulkPolyCoupledHackathon.h"
+#include "CHCoupledSplitHackathon.h"
+#include "CHSplitHackathon.h"
+#include "IsotropicACBulk.h"
+#include "IsotropicACInterface.h"
+
+//ICs
+#include "HackathonConcIC.h"
+#include "HackathonEtaIC.h"
+
+//Materials
+#include "HackathonMaterial.h"
 
 template<>
 InputParameters validParams<TransitionsApp>()
@@ -48,7 +65,19 @@ extern "C" void TransitionsApp__registerObjects(Factory & factory) { Transitions
 void
 TransitionsApp::registerObjects(Factory & factory)
 {
-  //registerUserObject(BoundaryIntegralFMM);
+  registerAuxKernel(HackathonCHACEnergy);
+  registerAuxKernel(HackathonCHEnergy);
+
+  registerKernel(ACBulkPolyCoupledHackathon);
+  registerKernel(CHCoupledSplitHackathon);
+  registerKernel(CHSplitHackathon);
+  registerKernel(IsotropicACBulk);
+  registerKernel(IsotropicACInterface);
+
+  registerInitialCondition(HackathonConcIC);
+  registerInitialCondition(HackathonEtaIC);
+
+  registerMaterial(HackathonMaterial);
 }
 
 // External entry point for dynamic syntax association
