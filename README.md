@@ -1,4 +1,4 @@
-# uconn-phase-transitions
+# phase-spinodal-ostwald
 MOOSE app code for phase transitions class at the University of Connecticut
 
 Within this code, the following projects can be investigated
