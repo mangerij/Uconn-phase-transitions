@@ -1,10 +1,16 @@
 #include "TransitionsApp.h"
 #include "Moose.h"
 #include "AppFactory.h"
-#include "ModulesApp.h"
+//#include "ModulesApp.h"
 #include "MooseSyntax.h"
 
 // Transitions Includes
+
+//Specific Modules
+#include "TensorMechanicsApp.h"
+#include "PhaseFieldApp.h"
+#include "MiscApp.h"
+
 
 //Auxkernels
 #include "HackathonCHACEnergy.h"
@@ -40,12 +46,21 @@ TransitionsApp::TransitionsApp(InputParameters parameters) :
     MooseApp(parameters)
 {
   Moose::registerObjects(_factory);
-  ModulesApp::registerObjects(_factory);
+  //ModulesApp::registerObjects(_factory);
   TransitionsApp::registerObjects(_factory);
 
   Moose::associateSyntax(_syntax, _action_factory);
-  ModulesApp::associateSyntax(_syntax, _action_factory);
+  //ModulesApp::associateSyntax(_syntax, _action_factory);
   TransitionsApp::associateSyntax(_syntax, _action_factory);
+
+  TensorMechanicsApp::registerObjects(_factory);
+  TensorMechanicsApp::associateSyntax(_syntax, _action_factory);
+
+  PhaseFieldApp::registerObjects(_factory);
+  PhaseFieldApp::associateSyntax(_syntax, _action_factory);
+
+  MiscApp::registerObjects(_factory);
+  MiscApp::associateSyntax(_syntax, _action_factory);
 }
 
 TransitionsApp::~TransitionsApp()
